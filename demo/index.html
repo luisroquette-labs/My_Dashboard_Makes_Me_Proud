@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My_Dashboard_Makes_Me_Proud — demo</title>
+<style>
+:root {
+  --ink: #1A1524;
+  --ink-soft: #3A3350;
+  --lilac: #C9A7FF;
+  --brand: #7B2FBE;
+  --bg: #F6F3FA;
+  --card: #FFFFFF;
+  --ok: #2E7D32;
+  --warn: #D5A62E;
+  --bad: #C0392B;
+  --border: #E5DFF2;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Inter, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--ink); }
+header { background: var(--ink); color: #fff; padding: 28px 32px; }
+header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+header p { color: var(--lilac); font-size: 13px; margin-top: 6px; }
+.badge-demo { display: inline-block; background: var(--brand); color: #fff; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 10px; border-radius: 999px; margin-top: 12px; }
+nav { display: flex; gap: 8px; padding: 16px 32px 0; flex-wrap: wrap; }
+nav button { background: var(--card); border: 1px solid var(--border); color: var(--ink-soft); font: inherit; font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 8px; cursor: pointer; }
+nav button.active { background: var(--brand); border-color: var(--brand); color: #fff; }
+main { padding: 24px 32px 48px; max-width: 1080px; }
+section.tela { display: none; }
+section.tela.ativa { display: block; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+.card h2 { font-size: 15px; margin-bottom: 14px; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+.kpi { border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+.kpi .valor { font-size: 24px; font-weight: 700; }
+.kpi .rotulo { font-size: 11px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+th { color: var(--ink-soft); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+.delta-up { color: var(--ok); font-weight: 600; }
+.delta-down { color: var(--bad); font-weight: 600; }
+.delta-flat { color: var(--ink-soft); }
+.funil { display: flex; flex-direction: column; gap: 10px; }
+.barra-funil { display: flex; align-items: center; gap: 12px; }
+.barra-funil .rotulo { width: 110px; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+.barra-funil .faixa { background: var(--border); border-radius: 6px; height: 26px; flex: 1; position: relative; }
+.barra-funil .preenchimento { background: linear-gradient(90deg, var(--brand), var(--lilac)); border-radius: 6px; height: 100%; }
+.barra-funil .num { width: 90px; font-size: 12px; flex-shrink: 0; }
+.alerta { border-left: 4px solid var(--warn); }
+.alerta-ok { border-left: 4px solid var(--ok); }
+.alerta-bad { border-left: 4px solid var(--bad); }
+ul.missing { list-style: none; }
+ul.missing li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+code { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; font-size: 12px; font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+footer { padding: 0 32px 32px; max-width: 1080px; font-size: 11px; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>My_Dashboard_Makes_Me_Proud</h1>
+  <p>Dashboard unificado — a camada Medir do MARKETING 4.0 · janelas 7/30/90 calendar-filled · ausência nunca é zero</p>
+  <span class="badge-demo">Dados de demonstração — não são dados reais</span>
+</header>
+
+<nav>
+  <button class="active" data-tela="funil">Funil</button>
+  <button data-tela="canais">Canais</button>
+  <button data-tela="saude">Health</button>
+  <button data-tela="missing">O que falta</button>
+</nav>
+
+<main>
+
+  <!-- FUNIL -->
+  <section class="tela ativa" id="funil">
+    <div class="card">
+      <h2>Visita → Lead → Compra (janela de 30 dias)</h2>
+      <div class="funil">
+        <div class="barra-funil">
+          <span class="rotulo">Cliques</span>
+          <div class="faixa"><div class="preenchimento" style="width: 100%"></div></div>
+          <span class="num">12.480 · 100%</span>
+        </div>
+        <div class="barra-funil">
+          <span class="rotulo">Leads</span>
+          <div class="faixa"><div class="preenchimento" style="width: 18.4%"></div></div>
+          <span class="num">2.296 · 18,4%</span>
+        </div>
+        <div class="barra-funil">
+          <span class="rotulo">Compras</span>
+          <div class="faixa"><div class="preenchimento" style="width: 2.6%"></div></div>
+          <span class="num">324 · 2,6%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Janelas calendar-filled</h2>
+      <div class="kpis">
+        <div class="kpi"><div class="valor">1.180</div><div class="rotulo">Cliques · 7d</div></div>
+        <div class="kpi"><div class="valor">4.910</div><div class="rotulo">Cliques · 30d</div></div>
+        <div class="kpi"><div class="valor">11.020</div><div class="rotulo">Cliques · 90d</div></div>
+        <div class="kpi"><div class="valor">18,4%</div><div class="rotulo">Conversão lead · 30d</div></div>
+        <div class="kpi"><div class="valor">R$ 26.380</div><div class="rotulo">Receita atribuída · 30d</div></div>
+      </div>
+      <p style="font-size: 11px; color: var(--ink-soft); margin-top: 12px;">
+        Dias sem eventos aparecem como <strong>ausência explícita</strong> na série — nunca como 0 que derruba a média.
+      </p>
+    </div>
+  </section>
+
+  <!-- CANAIS -->
+  <section class="tela" id="canais">
+    <div class="card">
+      <h2>Qual canal vendeu — por <code>utm_source</code></h2>
+      <table>
+        <thead>
+          <tr><th>Canal</th><th>Cliques 30d</th><th>Leads 30d</th><th>Compras 30d</th><th>Receita</th><th>vs janela anterior</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>mailmkt-lembrete2</td><td>4.210</td><td>412</td><td>118</td><td>R$ 9.820</td><td class="delta-up">▲ +14%</td></tr>
+          <tr><td>mailmkt-abandono</td><td>3.880</td><td>366</td><td>96</td><td>R$ 8.110</td><td class="delta-up">▲ +6%</td></tr>
+          <tr><td>lp-campanha-azul</td><td>2.640</td><td>918</td><td>71</td><td>R$ 5.930</td><td class="delta-flat">■ 0%</td></tr>
+          <tr><td>whatsapp-grupo</td><td>1.750</td><td>600</td><td>39</td><td>R$ 2.520</td><td class="delta-down">▼ −18%</td></tr>
+          <tr><td>ads-ig</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="delta-flat">sem dados</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size: 11px; color: var(--ink-soft); margin-top: 12px;">
+        A linha <code>ads-ig</code> está vazia porque o banco não tem eventos desse canal — o dashboard mostra a ausência, não inventa o número.
+      </p>
+    </div>
+  </section>
+
+  <!-- HEALTH -->
+  <section class="tela" id="saude">
+    <div class="card alerta-ok">
+      <h2>mailmkt-lembrete2 — saudável</h2>
+      <p style="font-size: 13px;">Crescimento consistente nas três janelas. Nenhuma ação necessária.</p>
+    </div>
+    <div class="card alerta">
+      <h2>whatsapp-grupo — morrendo</h2>
+      <p style="font-size: 13px;">Queda de 18% na janela 30d vs anterior e 31% na 7d. O link <code>mailmkt-<em>slug</em></code> do grupo parou de gerar cliques há 4 dias — suspeitar do encurtador ou do convite antes de mexer na peça.</p>
+    </div>
+    <div class="card alerta-bad">
+      <h2>lp-campanha-azul — travada</h2>
+      <p style="font-size: 13px;">Cliques estáveis, leads caindo 12%. A página convertia 34% e agora converte 27% — o gate de SEO pode ter mudado sem aviso. Rodar a auditoria da peça 1 na página.</p>
+    </div>
+  </section>
+
+  <!-- MISSING -->
+  <section class="tela" id="missing">
+    <div class="card">
+      <h2>O que o banco ainda não responde (resíduo anti-fabricação)</h2>
+      <ul class="missing">
+        <li><strong>Receita por canal Ads</strong> — não há eventos de <code>ads-ig</code> no período. Instalar o plug de rastreio antes de cobrar conclusões.</li>
+        <li><strong>Atribuição de compra</strong> — 41 compras (12,7%) sem <code>firstTrackingClickId</code>. Verificar a ponte de atribuição (fase 6 do wizard).</li>
+        <li><strong>Custo por peça</strong> — o banco não guarda custos de produção; o dashboard mede receita e volume, não ROI.</li>
+      </ul>
+      <p style="font-size: 11px; color: var(--ink-soft); margin-top: 12px;">
+        Toda tela deste demo é o render de uma query reproduzível — exemplo:
+        <code>select date(clicked_at), count(*) from clicks where window = '30d' group by 1</code>
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Demo estático, zero dependências — abra este arquivo no navegador. Os números acima são dados de exemplo; o Stage 2 da skill os substitui pelos do banco do dono.
+</footer>
+
+<script>
+document.querySelectorAll('nav button').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    document.querySelectorAll('nav button').forEach(function (b) { b.classList.remove('active'); });
+    document.querySelectorAll('section.tela').forEach(function (t) { t.classList.remove('ativa'); });
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tela).classList.add('ativa');
+  });
+});
+</script>
+</body>
+</html>
