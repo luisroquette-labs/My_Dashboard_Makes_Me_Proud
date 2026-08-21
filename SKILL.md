@@ -19,15 +19,18 @@ The MEASURE layer of the MARKETING 4.0 pack. It does not generate traffic, conve
 2. **Absence is never zero.** A day without data is an explicit empty day — never a silent 0 that reads as failure.
 3. **Calendar-filled windows.** Every aggregate compares the same 7/30/90 calendar-filled windows, not trailing event counts.
 4. **Anti-fabrication.** The dashboard renders only what the database holds. A number the data cannot support is omitted, never estimated.
-5. **Metrics never block delivery.** A dashboard failure is logged; it never touches the funnel (clicks, leads, emails keep flowing).
+5. **Metrics never block delivery.** A dashboard failure is reported to the owner with the failing query; it never touches the funnel (clicks, leads, emails keep flowing).
 6. **Admin access only.** Dashboard data is owner-only (deny-all RLS; service-role RPCs only).
 
 ## Stage 1 — Connect
 
 Discover the owner's Supabase connection — the same project the other pieces already use. Prefer the credentials the pack setup already recorded in the workspace `.env`. Never place `service_role` keys in client-side code; the dashboard reads through owner-approved RPCs.
 
+**The RPC boundary:** the read RPCs are created by the pack setup (wizard), never by the dashboard — this skill is read-only by contract. Stage 1 validates that they exist and lists the missing ones for the owner, instead of creating them or assuming they are there.
+
 **Output contract:**
 - A verified read path to the owner's Supabase project (URL + anon/service key placement stated).
+- The read RPCs validated against the owner's schema; any missing RPC reported by name (the owner reruns the pack setup to add them).
 - The list of tables the dashboard will read: `tracking_links`/clicks, `leads`, `purchases` — the exact names found in the owner's schema, never assumed.
 - A stated refusal if any required table is missing: the dashboard reports the gap instead of inventing columns.
 
