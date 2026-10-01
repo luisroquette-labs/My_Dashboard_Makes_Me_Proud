@@ -31,7 +31,7 @@ Para o dono de loja que montou o funil com o pack e quer saber, sem exportar pla
 ## Instalação
 
 ```bash
-git clone https://github.com/luisroquette/My_Dashboard_Makes_Me_Proud.git
+git clone https://github.com/luisroquette-labs/My_Dashboard_Makes_Me_Proud.git
 ```
 
 A skill é portátil: copie `SKILL.md` (e o conteúdo da pasta) para `~/.claude/skills/my-dashboard-makes-me-proud/` e ela fica disponível em qualquer projeto.
