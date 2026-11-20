@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "node scripts/check-comments.mjs",
+    "test:comment-lint": "node --test scripts/check-comments.test.mjs",
+    "preflight:ci": "npm run test:comment-lint && npm run lint"
+  },
+  "devDependencies": {
+    "acorn": "^8.19.0",
+    "parse5": "^8.1.1"
+  }
+}
